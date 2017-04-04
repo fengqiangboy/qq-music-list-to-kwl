@@ -1,6 +1,9 @@
 from bs4 import BeautifulSoup
 import requests
 
+# 歌单id 需要替换成你自己的
+LIST_ID = "2330669376"
+
 
 def getQQMusicList(url):
     '''
@@ -10,7 +13,7 @@ def getQQMusicList(url):
     '''
     html = requests.get(url)
     # print(html.text)
-    soup = BeautifulSoup(html.text, "html.parser")
+    soup = BeautifulSoup(html.text, "html5lib")
     # print(soup.select("ul.songlist__list li", limit=2))
     lists = soup.select("ul.songlist__list li")
     ret = []
@@ -41,7 +44,7 @@ def chunks(arr, n):
     return [arr[i:i + n] for i in range(0, len(arr), n)]
 
 
-l = getQQMusicList("https://y.qq.com/n/yqq/playlist/3057195723.html")
+l = getQQMusicList("https://y.qq.com/n/yqq/playlist/" + LIST_ID + ".html")
 partLists = chunks(l, 100)
 # k = list2kwl(l)
 
